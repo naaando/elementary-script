@@ -70,6 +70,7 @@ function main() {
 		FALSE "Install Firefox" "A free and open-source web browser." \
 		FALSE "Install Google Chrome" "A browser that combines a minimal design with sophisticated technology to make the web faster, safer, and easier." \
 		FALSE "Install Opera" "Fast, secure, easy-to-use browser" \
+		FALSE "Install Telegram" "Fast, secure, easy-to-use chat messager" \
 		FALSE "Install Support for Archive Formats" "Installs support for archive formats(.zip, .rar, .p7)." \
 		FALSE "Fix keyboard accents on latin keyboard" "Autostart ibus-daemon, you may want to check it if you're having issues with accents on Qt apps" \
 		FALSE "Add Oibaf Repository" "This repository contain updated and optimized open graphics drivers." \
@@ -225,6 +226,22 @@ function parse_opt() {
 		wget -qO- https://deb.opera.com/archive.key | sudo apt-key add -
 		sudo apt update
 		installPackage opera-stable
+	fi
+
+	# Install Telegram
+	if [[ $opt == *"Install Telegram"* ]]
+	then
+		echo "Installing Telegram..."
+		# sudo add-apt-repository 'deb https://deb.opera.com/opera-stable/ stable non-free' -y
+		# wget -qO- https://deb.opera.com/archive.key | sudo apt-key add -
+		# sudo apt update
+		# installPackage opera-stable
+		cd /tmp
+		wget https://telegram.org/dl/desktop/linux -nc
+		tar xf linux
+		sudo rm /opt/Telegram -R
+		sudo mv Telegram /opt/
+		nohup /opt/Telegram/Telegram & disown
 	fi
 
 	# Install Support for Archive Formats Action
